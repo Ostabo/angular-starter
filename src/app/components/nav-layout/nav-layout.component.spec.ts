@@ -1,15 +1,15 @@
-import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { waitForAsync, ComponentFixture, TestBed } from "@angular/core/testing";
+import { NoopAnimationsModule } from "@angular/platform-browser/animations";
 
-import { NavLayoutComponent } from './nav-layout.component';
+import { NavLayoutComponent } from "./nav-layout.component";
 
-describe('NavLayoutComponent', () => {
+describe("NavLayoutComponent", () => {
   let component: NavLayoutComponent;
   let fixture: ComponentFixture<NavLayoutComponent>;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [NoopAnimationsModule]
+      imports: [NoopAnimationsModule],
     }).compileComponents();
   }));
 
@@ -19,7 +19,7 @@ describe('NavLayoutComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should compile', () => {
+  it("should compile", () => {
     expect(component).toBeTruthy();
   });
 });

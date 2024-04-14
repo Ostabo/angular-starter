@@ -1,29 +1,50 @@
 <mat-sidenav-container class="sidenav-container">
-    <mat-sidenav #drawer class="sidenav" fixedInViewport
-                 [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
-                 [mode]="(isHandset$ | async) ? 'over' : 'side'"
-                 [opened]="(isHandset$ | async) === false">
-        <mat-toolbar>Menu</mat-toolbar>
-        <mat-nav-list>
-            <a mat-list-item routerLink="/">Link 1</a>
-            <a mat-list-item routerLink="/">Link 2</a>
-            <a mat-list-item routerLink="/">Link 3</a>
-        </mat-nav-list>
-    </mat-sidenav>
-    <mat-sidenav-content>
-        <mat-toolbar color="primary">
-            @if (isHandset$ | async) {
-                <button
-                        type="button"
-                        aria-label="Toggle sidenav"
-                        mat-icon-button
-                        (click)="drawer.toggle()">
-                    <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
-                </button>
-            }
-            <span>angular-starter</span>
-            <button mat-button routerLink="/">Login</button>
-        </mat-toolbar>
-        <router-outlet></router-outlet>
-    </mat-sidenav-content>
+  <mat-sidenav
+    #drawer
+    class="sidenav"
+    fixedInViewport
+    [attr.role]="isHandset() ? 'dialog' : 'navigation'"
+    [mode]="isHandset() ? 'over' : 'side'"
+    [opened]="isHandset() === false"
+  >
+    <mat-toolbar>Angular Starter</mat-toolbar>
+    <mat-nav-list>
+      <a mat-list-item routerLink="/">Link 1</a>
+      <a mat-list-item routerLink="/">Link 2</a>
+      <a mat-list-item routerLink="/">Link 3</a>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <mat-toolbar color="primary">
+      @if (isHandset()) {
+        <button
+          type="button"
+          aria-label="Toggle sidenav"
+          mat-icon-button
+          (click)="drawer.toggle()"
+        >
+          <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+        </button>
+      }
+      <span class="flex-1"></span>
+      <span class="flex justify-evenly">
+        <label class="p-0.5 mr-0.5">Dark Mode</label>
+        <mat-slide-toggle
+          (change)="themeStore.toggleDarkMode()"
+          [checked]="darkMode()"
+          [matTooltip]="'Toggle Dark Mode'"
+        ></mat-slide-toggle>
+      </span>
+      <mat-divider [vertical]="true" class="block w-1 border-l"></mat-divider>
+      <span class="flex justify-evenly">
+        <label class="p-0.5 mr-0.5">V3</label>
+        <mat-slide-toggle
+          (change)="themeStore.toggleMaterialV3()"
+          [checked]="materialV3()"
+          [matTooltip]="'Toggle Material V3'"
+        ></mat-slide-toggle>
+      </span>
+    </mat-toolbar>
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
 </mat-sidenav-container>

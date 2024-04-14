@@ -1,4 +1,9 @@
-import { ChangeDetectionStrategy, Component, inject } from "@angular/core";
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  inject,
+} from "@angular/core";
 import { BreakpointObserver, Breakpoints } from "@angular/cdk/layout";
 import { AsyncPipe } from "@angular/common";
 import { MatToolbarModule } from "@angular/material/toolbar";
@@ -6,9 +11,14 @@ import { MatButtonModule } from "@angular/material/button";
 import { MatSidenavModule } from "@angular/material/sidenav";
 import { MatListModule } from "@angular/material/list";
 import { MatIconModule } from "@angular/material/icon";
-import { Observable } from "rxjs";
-import { map, shareReplay } from "rxjs/operators";
 import { RouterLink, RouterOutlet } from "@angular/router";
+import { MatSlideToggle } from "@angular/material/slide-toggle";
+import { MatLabel } from "@angular/material/form-field";
+import { MatTooltip } from "@angular/material/tooltip";
+import { toSignal } from "@angular/core/rxjs-interop";
+import { shareReplay } from "rxjs";
+import { map } from "rxjs/operators";
+import { ThemeSwitcherService } from "../../services/theme-switcher/theme-switcher.service";
 
 @Component({
   selector: "app-nav-layout",
@@ -25,15 +35,22 @@ import { RouterLink, RouterOutlet } from "@angular/router";
     AsyncPipe,
     RouterLink,
     RouterOutlet,
+    MatSlideToggle,
+    MatLabel,
+    MatTooltip,
   ],
 })
 export class NavLayoutComponent {
   private breakpointObserver = inject(BreakpointObserver);
+  themeStore = inject(ThemeSwitcherService);
 
-  isHandset$: Observable<boolean> = this.breakpointObserver
-    .observe(Breakpoints.Handset)
-    .pipe(
+  darkMode = computed(() => this.themeStore.theme().darkMode);
+  materialV3 = computed(() => this.themeStore.theme().materialV3);
+
+  isHandset = toSignal(
+    this.breakpointObserver.observe(Breakpoints.Handset).pipe(
       map((result) => result.matches),
       shareReplay(),
-    );
+    ),
+  );
 }
