@@ -19,6 +19,7 @@ import { toSignal } from "@angular/core/rxjs-interop";
 import { shareReplay } from "rxjs";
 import { map } from "rxjs/operators";
 import { ThemeSwitcherService } from "../../services/theme-switcher/theme-switcher.service";
+import { SplashScreenComponent } from "../splash-screen/splash-screen.component";
 
 @Component({
   selector: "app-nav-layout",
@@ -38,6 +39,7 @@ import { ThemeSwitcherService } from "../../services/theme-switcher/theme-switch
     MatSlideToggle,
     MatLabel,
     MatTooltip,
+    SplashScreenComponent,
   ],
 })
 export class NavLayoutComponent {
